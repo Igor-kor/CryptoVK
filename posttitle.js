@@ -34,43 +34,18 @@ function checkboxCheck(value) {
 chrome.runtime.sendMessage(window.extentioncryptovkid, {
     "method": "hash",
     "key": params['sel']
-}, function (keyhash) {
-    if (keyhash == undefined) {
-        keyhash = "1234567890123456789012345678901234567890123456789012345678901234";
-    }
-    keyhash = keyhash.match(/\w{1,2}/g);
-    keyhash.forEach(function (item, i, arr) {
-        arr[i] = parseInt(item, 16);
-    });
-
+}, function (value) {
+   var keyhash = getHashFromString(value);
     function decrypt() {
         var messagesObj = document.getElementsByClassName('im-mess--text');
         var messages = Array.from(messagesObj);
         messages.forEach(function (item, i, messages) {
             if (item.innerText.substring(0, 6) == "crypt:") {
                 var text = item.innerText.substring(6) + "";
-                item.innerHTML = '<div style="color: #000000; display: inline-block;">#</div><div style="color: #dd5a00; display: inline-block;">' + decryptText(text) + '</div>';
+                item.innerHTML = '<div style="color: #000000; display: inline-block;">#</div><div style="color: #dd5a00; display: inline-block;">' + decryptText(text,keyhash) + '</div>';
                 messagesObj[i].parentNode.setAttribute("style", "background-color: black;");
             }
         });
-    }
-
-    function decryptText(value) {
-        value = value.replace(/\n/g, '');
-        var encryptedBytes = aesjs.utils.hex.toBytes(value);
-
-        var aesCtr = new aesjs.ModeOfOperation.ctr(keyhash, new aesjs.Counter(5));
-        var decryptedBytes = aesCtr.decrypt(encryptedBytes);
-
-        return aesjs.utils.utf8.fromBytes(decryptedBytes);
-    }
-
-    function cryptText(value) {
-        var textBytes = aesjs.utils.utf8.toBytes(value);
-        var aesCtr = new aesjs.ModeOfOperation.ctr(keyhash, new aesjs.Counter(5));
-        var encryptedBytes = aesCtr.encrypt(textBytes);
-
-        return "crypt:" + aesjs.utils.hex.fromBytes(encryptedBytes);
     }
 
     function endis() {
@@ -110,7 +85,7 @@ chrome.runtime.sendMessage(window.extentioncryptovkid, {
 
                 textareasend.onblur = function () {
                     temptext = textareasend.innerText;
-                    textareasend.innerText = cryptText(textareasend.innerText);
+                    textareasend.innerText = "crypt:" +cryptText(textareasend.innerText,keyhash);
                 };
 
                 textareasend.onfocus = function () {

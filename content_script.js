@@ -21,5 +21,7 @@ function addCSS(src) {
 addScriptText("window.extentioncryptovkid = '"+chrome.runtime.id+"';");
 addCSS(chrome.extension.getURL('/style.css'));
 addScript(chrome.extension.getURL('aes-js/index.js'));
+addScript(chrome.extension.getURL('/crypt.js'));
 addScript(chrome.extension.getURL('/posttitle.js'));
+
 
