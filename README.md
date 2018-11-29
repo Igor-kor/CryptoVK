@@ -1,11 +1,7 @@
-# includeExtension
-Расширение для Google Chrome перекодирующее заголовки группы #INCLUDE
+# CryptoVK
+Расширение для Google Chrome 
 
+Пересылает зашифрованные сообщения в Вконтакте
 
-![скрин](https://pp.userapi.com/c831109/v831109864/c8caf/gydig2KzGKM.jpg)
+Шифрование AES CTR с 256 битным ключем
 
-
-Есть возможность переводить в base64 и обратно
-
-
-![скрин](https://pp.userapi.com/c834301/v834301152/107020/1XPGb-yfRng.jpg)
