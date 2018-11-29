@@ -1,0 +1,40 @@
+{
+  "name": "Crypto-VK",
+  "version": "0.1",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_title": "Crypti-VK",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "permissions": [
+    "https://vk.com/im*",
+    "tabs",
+    "webNavigation"
+  ],
+  "web_accessible_resources": [
+    "*.js",
+    "*.css"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://vk.com/im*"
+      ],
+      "js": [
+        "content_script.js"
+      ]
+    }
+  ],
+  "externally_connectable": {
+    "matches": [
+      "https://vk.com/*"
+    ],
+    "accepts_tls_channel_id": true
+  }
+
+}
