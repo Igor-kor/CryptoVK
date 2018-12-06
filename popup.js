@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
         var location = tabs[0].url;
         //если это не страница с сообщениями то скроем блок
-        if (location.search(/https:\/\/vk\.com\/im\?[a-zA-Z0-9\=\_\&]+sel/) == -1) {
+        if (location.search(/https:\/\/vk\.com\/im[\?a-zA-Z0-9\=\_\&]+sel/) == -1) {
             document.getElementsByClassName('passblock')[0].style.display = 'none';
         } else {
             var params = location
