@@ -5,12 +5,14 @@ function addScript(src) {
     script.charset = "utf8";
     document.head.appendChild(script);
 }
+
 function addScriptText(text) {
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.textContent = text;
     document.head.appendChild(script);
 }
+
 function addCSS(src) {
     var link = document.createElement('link');
     link.href = src;
@@ -18,7 +20,8 @@ function addCSS(src) {
     link.type = 'text/css';
     document.head.appendChild(link);
 }
-addScriptText("window.extentioncryptovkid = '"+chrome.runtime.id+"';");
+
+addScriptText("window.extentioncryptovkid = '" + chrome.runtime.id + "';");
 addCSS(chrome.extension.getURL('/style.css'));
 addScript(chrome.extension.getURL('aes-js/index.js'));
 addScript(chrome.extension.getURL('/crypt.js'));

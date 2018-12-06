@@ -35,14 +35,15 @@ chrome.runtime.sendMessage(window.extentioncryptovkid, {
     "method": "hash",
     "key": params['sel']
 }, function (value) {
-   var keyhash = getHashFromString(value);
+    var keyhash = getHashFromString(value);
+
     function decrypt() {
         var messagesObj = document.getElementsByClassName('im-mess--text');
         var messages = Array.from(messagesObj);
         messages.forEach(function (item, i, messages) {
             if (item.innerText.substring(0, 6) == "crypt:") {
                 var text = item.innerText.substring(6) + "";
-                item.innerHTML = '<div style="color: #000000; display: inline-block;">#</div><div style="color: #dd5a00; display: inline-block;">' + decryptText(text,keyhash) + '</div>';
+                item.innerHTML = '<div style="color: #000000; display: inline-block;">#</div><div style="color: #dd5a00; display: inline-block;">' + decryptText(text, keyhash) + '</div>';
                 messagesObj[i].parentNode.setAttribute("style", "background-color: black;");
             }
         });
@@ -85,7 +86,7 @@ chrome.runtime.sendMessage(window.extentioncryptovkid, {
 
                 textareasend.onblur = function () {
                     temptext = textareasend.innerText;
-                    textareasend.innerText = "crypt:" +cryptText(textareasend.innerText,keyhash);
+                    textareasend.innerText = "crypt:" + cryptText(textareasend.innerText, keyhash);
                 };
 
                 textareasend.onfocus = function () {
